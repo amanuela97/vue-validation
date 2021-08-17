@@ -1,27 +1,4 @@
-import {required, email, minLength, maxLength, helpers} from '@vuelidate/validators'
 import * as yup from 'yup';
-
-export const formValidations  = {
-    email: {
-        required: helpers.withMessage("email is required", required), 
-        email
-    },
-    password: {
-        required: helpers.withMessage("password is required", required), 
-        minLength: minLength(6), 
-        maxLength: maxLength(10)
-    },
-    username: {
-        required: helpers.withMessage("username is required", required), 
-        minLength: minLength(2), 
-        maxLength: maxLength(24)
-    },
-    city: {
-        required
-    }
-}
-
-
 export const formSchema = {
     fields: [
       {
@@ -67,6 +44,7 @@ export const formSchema = {
         ],
       },
     ],
+    // validation for fields
     validation: yup.object({
         email: yup.string().email().required(),
         name: yup.string().min(2).required(),
@@ -74,6 +52,7 @@ export const formSchema = {
         city: yup.string().required(),
     })
     ,
+    //initial values
     values: {
         email: 'example@example.com',
         name: 'John Smith',

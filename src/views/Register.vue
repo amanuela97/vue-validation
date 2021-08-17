@@ -1,27 +1,26 @@
 <template>
     <h1 id="h">Form with Vuelidate</h1>
-    <Form
-      from="form1"
+    <VueForm
       :v="v$"
       :email="email"
       :password="password"
       :username="username"
       :city="city"
-      @form1="() => submitForm()"
+      @vueForm="() => submitForm()"
       @input="(val) => onInputChange(val)"
     />
-    <router-link to="/register2" class="link">Go to Form-2</router-link>
+    <router-link to="/register2" class="link">Go to Form(vee-lidate)</router-link>
 </template>
 
 <script>
 import {useVuelidate} from '@vuelidate/core'
-import {formValidations} from '../use/vald.js'
-import Form from '../components/Form.vue'
+import {formValidations} from '../use/vue-validate.js'
+import VueForm from '../components/Vue-Form.vue'
 
 export default {
   name: 'Register',
   components:{
-    Form,
+    VueForm,
   },
   setup(){
     return{
