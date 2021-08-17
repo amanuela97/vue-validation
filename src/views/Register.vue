@@ -1,27 +1,37 @@
 <template>
     <h1 id="h">Form with Vuelidate</h1>
-    <VueForm
-      :v="v$"
-      :email="email"
-      :password="password"
-      :username="username"
-      :city="city"
-      @vueForm="() => submitForm()"
-      @input="(val) => onInputChange(val)"
-    />
+    <label for="email">Email</label>
+    <input type="email" name="email" v-model="email">
+    <span v-if="v$.email?.$error">
+    {{v$.email?.$errors[0].$message}}
+    </span>
+    <label for="password">New Password</label>
+    <input type="password" name="password" v-model="password">
+    <span v-if="v$.password?.$error">
+    {{v$.password?.$errors[0].$message}}
+    </span>
+    <label for="username">Username</label>
+    <input type="username" name="username" v-model="username">
+    <span v-if="v$.username?.$error">
+    {{v$.username?.$errors[0].$message}}
+    </span>
+    <label for="city">Your City</label>
+    <select name="city" v-model="city">
+    <option value="Helsinki">Helsinki</option>
+    <option value="Munich">Munich</option>
+    <option value="Addis Ababa">Addis Ababa</option>
+    <option value="Paris">Paris</option>
+    </select>
+    <button @click="submitForm" >Register</button>
     <router-link to="/register2" class="link">Go to Form(vee-lidate)</router-link>
 </template>
 
 <script>
 import {useVuelidate} from '@vuelidate/core'
 import {formValidations} from '../use/vue-validate.js'
-import VueForm from '../components/Vue-Form.vue'
 
 export default {
   name: 'Register',
-  components:{
-    VueForm,
-  },
   setup(){
     return{
       v$: useVuelidate()
@@ -41,24 +51,6 @@ export default {
     }
   },
   methods: {
-    setFields(val){
-      switch(val.field) {
-          case 'email':
-            this.email = val.value;
-            break;
-          case 'username':
-            this.username = val.value;
-            break;
-          case 'password':
-            this.password = val.value;
-            break;
-          case 'city':
-            this.city = val.value;
-            break;
-          default:
-            console.log('field not found');
-        }
-    },
     submitForm(){
       const user = this.username;
       this.v$.$validate()
@@ -68,13 +60,6 @@ export default {
       }
       
     },
-    onInputChange(val){
-      if (val.value) {
-        this.setFields(val)
-      }else{
-        this.setFields(val)
-      }
-    }
   },
 }
 </script>
@@ -86,6 +71,37 @@ export default {
 
 .link{
   margin-top: 50px;
+}
+
+
+label, select{
+  margin-bottom: 2px;
+  align-self: flex-start;
+  font-size: large;
+}
+input{
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border-width: medium;
+  border-color: lightseagreen;
+  width: 80%;
+}
+
+button{
+  padding: 10px;
+  width: 50%;
+  align-self: flex-end;
+  background: lightseagreen;
+  font-size: x-large;
+  cursor: pointer;
+}
+span{
+  padding: 2px;
+  background: lightgrey;
+  color: red;
+  margin-bottom: 10px;
+  border-radius: 20px;
 }
 </style>
 
